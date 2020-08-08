@@ -89,7 +89,7 @@ public class CalculateCreditSteps {
             String actualCreditTime = pageToOpen.GetCreditTimeValue();
             // убираем лишние символы в начале и конце
             actualCreditTime = actualCreditTime.replaceAll("^\\s+|\\s+$","");
-            Assert.assertTrue(expectedCreditTime.equals(actualCreditTime) );
+            Assert.assertEquals(expectedCreditTime, actualCreditTime);
         }
         catch (Exception e)
         {
@@ -106,7 +106,7 @@ public class CalculateCreditSteps {
             String actualCreditAmountValue = pageToOpen.GetCreditAmountValue();
             // убираем лишние символы
             actualCreditAmountValue = actualCreditAmountValue.replaceAll("\\s+","");
-            Assert.assertTrue(expectedCreditAmount.equals(actualCreditAmountValue));
+            Assert.assertEquals(expectedCreditAmount, actualCreditAmountValue);
         }
         catch (Exception e)
         {
@@ -124,7 +124,7 @@ public class CalculateCreditSteps {
             //убираем лишние символы
             actualMounthlyPaymentAmount = actualMounthlyPaymentAmount.replaceAll("\\s*","");
             actualMounthlyPaymentAmount = actualMounthlyPaymentAmount.replaceAll("₽","");
-            Assert.assertTrue(expectedMounthlyPaymentAmount.equals(actualMounthlyPaymentAmount));
+            Assert.assertEquals(expectedMounthlyPaymentAmount, actualMounthlyPaymentAmount);
         }
         catch (Exception e)
         {

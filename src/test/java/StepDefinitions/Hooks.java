@@ -21,7 +21,7 @@ public class Hooks {
     @Before
     public void openBrowser() throws Exception {
 
-        
+
         PropertiesReader propertiesReader = new PropertiesReader();
         System.setProperty("webdriver.chrome.driver",propertiesReader.getDriverPath());
         WebDriverManager.chromedriver().setup();
