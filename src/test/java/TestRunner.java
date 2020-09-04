@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "StepDefinitions",
-        tags = "@negative"
+        tags = "@positive"
 //        format = {
 //                "pretty",
 //                "html:target/cucumber-reports/cucumber-pretty",

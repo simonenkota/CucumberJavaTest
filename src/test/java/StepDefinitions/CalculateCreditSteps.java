@@ -4,6 +4,7 @@ import PageObjects.CreditCalculatorPage;
 import Utilities.PropertiesReader;
 import cucumber.api.PendingException;
 import cucumber.api.java.ru.*;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
@@ -19,15 +20,13 @@ public class CalculateCreditSteps {
     //экземпляр класса страницы с калькулятором
     private CreditCalculatorPage pageToOpen = new CreditCalculatorPage(driver, wait);
     // Инициализация логера
-    private static final Logger log = LogManager.getLogger();
+    public static final Logger LLOG = LogManager.getLogger(CalculateCreditSteps.class);
 
     public CalculateCreditSteps() throws Exception {
 
         PropertiesReader propertiesReader = new PropertiesReader();
         //создаем драйвер с найстройкой таймаута из конфигурационного файла
         this.wait = new WebDriverWait(driver, propertiesReader.getTimeout());
-        //уроверь логирования берем из конфигурационного файла
-        //log
     }
 
 
@@ -37,13 +36,13 @@ public class CalculateCreditSteps {
     {
         try
         {
-
-            log.info("Переход по ссылке " + pageToOpen.GetUrl());
+            LLOG.info("!!!!");
+            LLOG.debug("Переход по ссылке " + pageToOpen.GetUrl());
             driver.get(pageToOpen.GetUrl());
         }
         catch (Exception e)
         {
-            log.error("Catch Exception!!!", e);
+            LLOG.error("Catch Exception!!! ", e);
         }
     }
 
@@ -51,7 +50,7 @@ public class CalculateCreditSteps {
     public void вПолеСрокКредитаВведеноЗначение(String timeValue) {
         try
         {
-            log.debug("Вводим значение в поле срок кредита");
+            LLOG.debug("Вводим значение в поле срок кредита");
             //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
             pageToOpen.GetCreditTimeInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), timeValue);
             //переключаемся на другой элемент, чтобы сработал ввод значения
@@ -60,7 +59,7 @@ public class CalculateCreditSteps {
         }
         catch (Exception e)
         {
-            log.error("Catch Exception!!!", e);
+            LLOG.error("Catch Exception!!! ", e);
         }
     }
 
@@ -68,7 +67,7 @@ public class CalculateCreditSteps {
     public void вПолеСуммаКредитаВведеноЗначение(String creditValue) {
         try
         {
-            log.debug("Вводим значение в поле сумма кредита");
+            LLOG.debug("Вводим значение в поле сумма кредита");
             //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
             pageToOpen.GetCreditAmountInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), creditValue);
             //переключаемся на другой элемент, чтобы сработал ввод значения
@@ -76,7 +75,7 @@ public class CalculateCreditSteps {
         }
         catch (Exception e)
         {
-            log.error("Catch Exception!!!", e);
+            LLOG.error("Catch Exception!!! ", e);
         }
     }
 
@@ -85,7 +84,7 @@ public class CalculateCreditSteps {
     {
         try
         {
-            log.debug("получаем актуальное значение поля срок кредита");
+            LLOG.debug("получаем актуальное значение поля срок кредита");
             String actualCreditTime = pageToOpen.GetCreditTimeValue();
             // убираем лишние символы в начале и конце
             actualCreditTime = actualCreditTime.replaceAll("^\\s+|\\s+$","");
@@ -93,7 +92,7 @@ public class CalculateCreditSteps {
         }
         catch (Exception e)
         {
-            log.error("Catch Exception!!!", e);
+            LLOG.error("Catch Exception!!! ", e);
         }
     }
 
@@ -102,7 +101,7 @@ public class CalculateCreditSteps {
     {
         try
         {
-            log.debug("получаем актуальное значение поля сумма кредита");
+            LLOG.debug("получаем актуальное значение поля сумма кредита");
             String actualCreditAmountValue = pageToOpen.GetCreditAmountValue();
             // убираем лишние символы
             actualCreditAmountValue = actualCreditAmountValue.replaceAll("\\s+","");
@@ -110,7 +109,7 @@ public class CalculateCreditSteps {
         }
         catch (Exception e)
         {
-            log.error("Catch Exception!!!", e);
+            LLOG.error("Catch Exception!!! ", e);
         }
     }
 
@@ -119,7 +118,7 @@ public class CalculateCreditSteps {
     {
         try
         {
-            log.debug("получаем актуальное значение поля ежемесячный платеж");
+            LLOG.debug("получаем актуальное значение поля ежемесячный платеж");
             String actualMounthlyPaymentAmount = pageToOpen.GetMounthlyPaymentAmountValue();
             //убираем лишние символы
             actualMounthlyPaymentAmount = actualMounthlyPaymentAmount.replaceAll("\\s*","");
@@ -128,7 +127,7 @@ public class CalculateCreditSteps {
         }
         catch (Exception e)
         {
-            log.error("Catch Exception!!!", e);
+            LLOG.error("Catch Exception!!! ", e);
         }
     }
 

@@ -25,15 +25,10 @@ public class Hooks {
         PropertiesReader propertiesReader = new PropertiesReader();
         System.setProperty("webdriver.chrome.driver",propertiesReader.getDriverPath());
         WebDriverManager.chromedriver().setup();
-        //ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--headless", "--window-size=1440,768", "--disable-gpu");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(propertiesReader.getTimeout(), TimeUnit.SECONDS);
-        //driver.manage().timeouts().setScriptTimeout(propertiesReader.getTimeout(), TimeUnit.SECONDS);
-        //driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
 
-        //driver.get(PropertiesReader.getValue("url"));
     }
 
     @After

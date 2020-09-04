@@ -26,4 +26,9 @@ public class PropertiesReader {
         String driverPath = PropertiesReader.getValue("driverPath");
         return driverPath;
     }
+
+//    public String getLogLevel() throws Exception {
+//        String logLevel = PropertiesReader.getValue("logLevel");
+//        return logLevel;
+//    }
 }
