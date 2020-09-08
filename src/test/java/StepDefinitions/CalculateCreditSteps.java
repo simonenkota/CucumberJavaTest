@@ -5,13 +5,13 @@ import Utilities.PropertiesReader;
 import cucumber.api.PendingException;
 import cucumber.api.java.ru.*;
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.KeyInput;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class CalculateCreditSteps {
 
@@ -20,7 +20,8 @@ public class CalculateCreditSteps {
     //экземпляр класса страницы с калькулятором
     private CreditCalculatorPage pageToOpen = new CreditCalculatorPage(driver, wait);
     // Инициализация логера
-    public static final Logger LLOG = LogManager.getLogger(CalculateCreditSteps.class);
+    public static final Logger LLOG = LogManager.getLogger(CalculateCreditSteps.class.getName());
+    //public static final Logger LLOG = org.slf4j.LoggerFactory.getLogger(CalculateCreditSteps.class);
 
     public CalculateCreditSteps() throws Exception {
 

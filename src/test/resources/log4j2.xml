@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} %p: %msg -- %l %n"/>
+        </Console>
+        <!-- Файловый аппендер -->
+        <File name="FileAppender" fileName="application-${date:yyyyMMdd}.log" immediateFlush="false" append="true">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+<!--        <File name="file" fileName="log_file.log">-->
+<!--            <PatternLayout>-->
+<!--                <Pattern>%d{dd-MM-yyyy HH:mm:ss} [%-5p][%-20c{1}] [%-20M:%L] - %msg%n</Pattern>-->
+<!--            </PatternLayout>-->
+<!--        </File>-->
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
