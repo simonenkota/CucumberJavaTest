@@ -32,11 +32,7 @@ public class CalculateCreditSteps {
     public void вПолеСрокКредитаВведеноЗначение(String timeValue) {
         try {
             LLOG.debug("Вводим значение в поле срок кредита");
-            //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
-            calculatorPage.GetCreditTimeInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), timeValue);
-            //переключаемся на другой элемент, чтобы сработал ввод значения
-            calculatorPage.GetCreditAmountLabel().click();
-
+            calculatorPage.SetCreditTimeInput(timeValue);
         }
         catch (Exception e){
             LLOG.error("Catch Exception!!! ", e);
@@ -47,10 +43,7 @@ public class CalculateCreditSteps {
     public void вПолеСуммаКредитаВведеноЗначение(String creditValue) {
         try {
             LLOG.debug("Вводим значение в поле сумма кредита");
-            //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
-            calculatorPage.GetCreditAmountInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), creditValue);
-            //переключаемся на другой элемент, чтобы сработал ввод значения
-            calculatorPage.GetCreditAmountLabel().click();
+            calculatorPage.SetCreditAmountInput(creditValue);
         }
         catch (Exception e){
             LLOG.error("Catch Exception!!! ", e);

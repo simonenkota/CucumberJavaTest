@@ -6,7 +6,7 @@
         </Console>
         <!-- Файловый аппендер -->
         <File name="FileAppender" fileName="application-${date:yyyyMMdd}.log" immediateFlush="false" append="true">
-            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} %p %logger{36}[%L] - %msg%n"/>
         </File>
     </Appenders>
     <Loggers>

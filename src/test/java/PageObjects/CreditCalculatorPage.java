@@ -1,6 +1,7 @@
 package PageObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
@@ -87,4 +88,21 @@ public class CreditCalculatorPage extends BasePage
     public WebElement GetCreditAmountLabel() {
         return creditAmountLabel;
     }
+
+    //ввод значения в поле срок кредита
+    public void SetCreditTimeInput(String timeValue) {
+       //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
+       GetCreditTimeInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), timeValue);
+       //переключаемся на другой элемент, чтобы сработал ввод значения
+       creditAmountLabel.click();
+    }
+    //ввод значения в поле размер кредита
+    public void SetCreditAmountInput(String creditValue) {
+        //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
+        GetCreditAmountInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), creditValue);
+        //переключаемся на другой элемент, чтобы сработал ввод значения
+        GetCreditAmountLabel().click();
+    }
+
+
 }
