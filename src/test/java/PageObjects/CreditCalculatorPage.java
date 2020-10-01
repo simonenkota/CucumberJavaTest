@@ -16,36 +16,38 @@ public class CreditCalculatorPage extends BasePage
     //адрес страницы с калькулятором
     private String url = "https://www.raiffeisen.ru/retail/consumerloans/calculator/";
 
-    //базовый фрейм калькулятора
-    private final String creditCalc = "//div[@id='app']";
-
+    // //*[@id='app']/../div[./label[contains(text(),'Сумма кредита')]]/div
     //элемент размер кредита
-    @FindBy(xpath =  creditCalc + "/div/div[1]/div[1]/div[1]/div/div/div[1][./input]")
+    @FindBy(xpath =  "//div[@data-field='amount.input']")
     @CacheLookup
     private WebElement creditAmountInput;
 
     //элемент метка размер кредита
-    @FindBy(xpath =  creditCalc + "/div/div[1]/div[1]/div[1]/div/div/label")
+    // //*[@id='app']/../label[contains(text(),'Сумма кредита')]
+    @FindBy(xpath =  "//div[@data-field='amount']/label")
     @CacheLookup
     private WebElement creditAmountLabel;
 
     //элемент срок кредита
-    @FindBy(xpath = creditCalc + "/div/div[1]/div[1]/div[2]/div[1][./input]")
+    // //*[@id='app']/../div[./label[contains(text(),'Срок кредита')]]/div
+    @FindBy(xpath = "//div[@data-field='term.input']")
     @CacheLookup
     private WebElement creditTimeInput;
 
     //элемент ежемесячный платеж
-    @FindBy(xpath = creditCalc + "/div/div[1]/div[2]/div/div[1]/div[@class='legend sum-value']/p[@class='legend__value']")
+    // //*[@id='app']/..//div[@class='legend sum-value']/p[@class='legend__value']
+    @FindBy(xpath = "//div[@data-field='total']/p[@class='legend__value']")
     @CacheLookup
     private WebElement creditMonthlyPayment;
 
     //элемент ставка по кредиту
-    @FindBy(xpath = creditCalc + "/div/div[1]/div[2]/div/div[1]/div[@class='legend']/p[@class='legend__value']")
+    // //*[@id='app']/../div[@class='legend']/p[@class='legend__value']
+    @FindBy(xpath = "//div[@data-field='rate']/p[@class='legend__value']")
     @CacheLookup
     private WebElement creditRate;
 
     //элемент кнопка оформить
-    @FindBy(xpath = creditCalc + "/div/div[1]/div[2]/div/div[2]/button")
+    @FindBy(xpath = "*[@id='app']/../button")
     @CacheLookup
     private  WebElement submitButton;
 
@@ -101,7 +103,7 @@ public class CreditCalculatorPage extends BasePage
         //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
         GetCreditAmountInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), creditValue);
         //переключаемся на другой элемент, чтобы сработал ввод значения
-        GetCreditAmountLabel().click();
+        creditAmountLabel.click();
     }
 
 
