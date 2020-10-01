@@ -1,133 +1,101 @@
 package StepDefinitions;
 
 import PageObjects.CreditCalculatorPage;
-import Utilities.PropertiesReader;
-import cucumber.api.PendingException;
 import cucumber.api.java.ru.*;
-import org.apache.logging.log4j.Level;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.KeyInput;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class CalculateCreditSteps {
 
-    private WebDriver driver = Hooks.driver;
-    private WebDriverWait wait;
-    //экземпляр класса страницы с калькулятором
-    private CreditCalculatorPage pageToOpen = new CreditCalculatorPage(driver, wait);
     // Инициализация логера
-    public static final Logger LLOG = LogManager.getLogger(CalculateCreditSteps.class.getName());
-    //public static final Logger LLOG = org.slf4j.LoggerFactory.getLogger(CalculateCreditSteps.class);
-
-    public CalculateCreditSteps() throws Exception {
-
-        PropertiesReader propertiesReader = new PropertiesReader();
-        //создаем драйвер с найстройкой таймаута из конфигурационного файла
-        this.wait = new WebDriverWait(driver, propertiesReader.getTimeout());
-    }
+    public static Logger LLOG = LogManager.getLogger(CalculateCreditSteps.class.getName());
+    //экземпляр класса страницы с калькулятором
+    private CreditCalculatorPage calculatorPage;
 
 
     // переход по ссылке и проверка что страница загрузилась
     @Дано("^открываем страницу Кредитный калькулятор$")
-    public void открываемСтраницуКредитныйКалькулятор()
-    {
-        try
-        {
-            LLOG.info("!!!!");
-            LLOG.debug("Переход по ссылке " + pageToOpen.GetUrl());
-            driver.get(pageToOpen.GetUrl());
+    public void открываемСтраницуКредитныйКалькулятор() {
+        try{
+            calculatorPage =  new CreditCalculatorPage();
+            LLOG.debug("Переход по ссылке " + calculatorPage.GetUrl());
+            calculatorPage.OpenCalculatorPage();
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             LLOG.error("Catch Exception!!! ", e);
         }
     }
 
     @Когда("^в поле срок кредита введено значение \"([^\"]*)\"$")
     public void вПолеСрокКредитаВведеноЗначение(String timeValue) {
-        try
-        {
+        try {
             LLOG.debug("Вводим значение в поле срок кредита");
             //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
-            pageToOpen.GetCreditTimeInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), timeValue);
+            calculatorPage.GetCreditTimeInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), timeValue);
             //переключаемся на другой элемент, чтобы сработал ввод значения
-            pageToOpen.getCreditAmountLabel().click();
+            calculatorPage.GetCreditAmountLabel().click();
 
         }
-        catch (Exception e)
-        {
+        catch (Exception e){
             LLOG.error("Catch Exception!!! ", e);
         }
     }
 
     @Когда("^в поле сумма кредита введено значение \"([^\"]*)\"$")
     public void вПолеСуммаКредитаВведеноЗначение(String creditValue) {
-        try
-        {
+        try {
             LLOG.debug("Вводим значение в поле сумма кредита");
             //нужно очищать поле и вводить сразу же данные,т.к есть автозаполнение
-            pageToOpen.GetCreditAmountInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), creditValue);
+            calculatorPage.GetCreditAmountInput().sendKeys(Keys.chord(Keys.CONTROL, "a"), creditValue);
             //переключаемся на другой элемент, чтобы сработал ввод значения
-            pageToOpen.getCreditAmountLabel().click();
+            calculatorPage.GetCreditAmountLabel().click();
         }
-        catch (Exception e)
-        {
+        catch (Exception e){
             LLOG.error("Catch Exception!!! ", e);
         }
     }
 
     @Тогда("^значение поля срок кредита совпадает с \"([^\"]*)\"$")
-    public void значениеПоляСрокКредитаСовпадаетС(String expectedCreditTime)
-    {
-        try
-        {
+    public void значениеПоляСрокКредитаСовпадаетС(String expectedCreditTime) {
+        try {
             LLOG.debug("получаем актуальное значение поля срок кредита");
-            String actualCreditTime = pageToOpen.GetCreditTimeValue();
+            String actualCreditTime = calculatorPage.GetCreditTimeValue();
             // убираем лишние символы в начале и конце
             actualCreditTime = actualCreditTime.replaceAll("^\\s+|\\s+$","");
             Assert.assertEquals(expectedCreditTime, actualCreditTime);
         }
-        catch (Exception e)
-        {
+        catch (Exception e){
             LLOG.error("Catch Exception!!! ", e);
         }
     }
 
     @Тогда("^значение поля сумма кредита совпадает с \"([^\"]*)\"$")
-    public void значениеПоляСуммаКредитаСовпадаетС(String expectedCreditAmount)
-    {
-        try
-        {
+    public void значениеПоляСуммаКредитаСовпадаетС(String expectedCreditAmount) {
+        try {
             LLOG.debug("получаем актуальное значение поля сумма кредита");
-            String actualCreditAmountValue = pageToOpen.GetCreditAmountValue();
+            String actualCreditAmountValue = calculatorPage.GetCreditAmountValue();
             // убираем лишние символы
             actualCreditAmountValue = actualCreditAmountValue.replaceAll("\\s+","");
             Assert.assertEquals(expectedCreditAmount, actualCreditAmountValue);
         }
-        catch (Exception e)
-        {
+        catch (Exception e){
             LLOG.error("Catch Exception!!! ", e);
         }
     }
 
     @Тогда("^значение поля ежемесячный платеж совпадает с \"([^\"]*)\"$")
-    public void значениеПоляЕжемесячныйПлатежСовпадаетС(String expectedMounthlyPaymentAmount)
-    {
-        try
-        {
+    public void значениеПоляЕжемесячныйПлатежСовпадаетС(String expectedMounthlyPaymentAmount) {
+        try {
             LLOG.debug("получаем актуальное значение поля ежемесячный платеж");
-            String actualMounthlyPaymentAmount = pageToOpen.GetMounthlyPaymentAmountValue();
+            String actualMounthlyPaymentAmount = calculatorPage.GetMounthlyPaymentAmountValue();
             //убираем лишние символы
             actualMounthlyPaymentAmount = actualMounthlyPaymentAmount.replaceAll("\\s*","");
             actualMounthlyPaymentAmount = actualMounthlyPaymentAmount.replaceAll("₽","");
             Assert.assertEquals(expectedMounthlyPaymentAmount, actualMounthlyPaymentAmount);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             LLOG.error("Catch Exception!!! ", e);
         }
     }

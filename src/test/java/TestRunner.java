@@ -1,5 +1,7 @@
+import Utilities.WebDriverSingleton;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
@@ -14,4 +16,11 @@ import org.junit.runner.RunWith;
 //                "junit:target/cucumber-reports/CucumberTestReport.xml"
 //        }
 )
-public class TestRunner { }
+public class TestRunner {
+
+    //закрываем браузер после всех сценариев
+    @AfterClass
+    public static void CleanUp () throws Exception {
+        WebDriverSingleton.GetInstance().GetDriver().quit();
+    }
+}

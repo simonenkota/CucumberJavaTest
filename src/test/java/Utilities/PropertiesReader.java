@@ -17,18 +17,14 @@ public class PropertiesReader {
         return properties.getProperty(key);
     }
 
-    public Long getTimeout() throws Exception {
+    public Long GetTimeout() throws Exception {
         String timeout = PropertiesReader.getValue("timeout");
         return Long.parseLong(timeout);
     }
 
-    public String getDriverPath() throws Exception {
+    public String GetDriverPath() throws Exception {
         String driverPath = PropertiesReader.getValue("driverPath");
         return driverPath;
     }
 
-//    public String getLogLevel() throws Exception {
-//        String logLevel = PropertiesReader.getValue("logLevel");
-//        return logLevel;
-//    }
 }

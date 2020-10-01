@@ -1,25 +1,34 @@
 package PageObjects;
 
+import Utilities.WebDriverSingleton;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
 
-    private static WebDriver driver;
+    //экземпляр браузера
+    public static WebDriver browser;
+    static {
+        try {
+            browser = WebDriverSingleton.GetInstance().GetDriver();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private static WebDriverWait wait;
 
-    public BasePage (WebDriver driver, WebDriverWait wait)
-    {
-        BasePage.driver = driver;
-        BasePage.wait = wait;
 
+    //инициализация элементов страницы
+    public BasePage () {
+
+        PageFactory.initElements(browser, this);
     }
-    protected void WaitUntilElementVisible(WebElement element) {
 
+    protected void WaitUntilElementVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-
 
 }
