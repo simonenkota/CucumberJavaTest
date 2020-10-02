@@ -2,7 +2,6 @@ package StepDefinitions;
 
 import PageObjects.CreditCalculatorPage;
 import io.cucumber.java.ru.*;
-import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +24,7 @@ public class CalculateCreditSteps {
             calculatorPage.OpenCalculatorPage();
         }
         catch (Exception e) {
-            LLOG.error("Catch Exception!!! ", e);
+            LLOG.error("Catch Exception!!! ", e.getMessage());
         }
     }
     @Когда("^в поле срок кредита введено значение \"([^\"]*)\"$")
@@ -35,7 +34,7 @@ public class CalculateCreditSteps {
             calculatorPage.SetCreditTimeInput(timeValue);
         }
         catch (Exception e){
-            LLOG.error("Catch Exception!!! ", e);
+            LLOG.error("Catch Exception!!! ", e.getMessage());
         }
     }
     @Когда("^в поле сумма кредита введено значение \"([^\"]*)\"$")
@@ -45,7 +44,7 @@ public class CalculateCreditSteps {
             calculatorPage.SetCreditAmountInput(creditValue);
         }
         catch (Exception e){
-            LLOG.error("Catch Exception!!! ", e);
+            LLOG.error("Catch Exception!!! ", e.getMessage());
         }
     }
     @Тогда("^значение поля срок кредита совпадает с \"([^\"]*)\"$")
@@ -55,11 +54,10 @@ public class CalculateCreditSteps {
             String actualCreditTime = calculatorPage.GetCreditTimeValue();
             // убираем лишние символы в начале и конце
             actualCreditTime = actualCreditTime.replaceAll("^\\s+|\\s+$","");
-            //Assert.assertEquals(expectedCreditTime, actualCreditTime);
             Assert.assertEquals("Сравниваем актуальное и ожидаемые значения срока кредита ",expectedCreditTime,actualCreditTime);
         }
         catch (Exception e){
-            LLOG.error("Catch Exception!!! ", e);
+            LLOG.error("Catch Exception!!! ", e.getMessage());
         }
     }
     @Тогда("^значение поля сумма кредита совпадает с \"([^\"]*)\"$")
@@ -72,7 +70,7 @@ public class CalculateCreditSteps {
             Assert.assertEquals("Сравниваем актуальное и ожидаемые значения суммы кредита ", expectedCreditAmount, actualCreditAmountValue);
         }
         catch (Exception e){
-            LLOG.error("Catch Exception!!! ", e);
+            LLOG.error("Catch Exception!!! ", e.getMessage());
         }
     }
 
@@ -87,7 +85,7 @@ public class CalculateCreditSteps {
             Assert.assertEquals(expectedMounthlyPaymentAmount, actualMounthlyPaymentAmount);
         }
         catch (Exception e) {
-            LLOG.error("Catch Exception!!! ", e);
+            LLOG.error("Catch Exception!!! ", e.getMessage());
         }
     }
 
