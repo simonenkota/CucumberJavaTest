@@ -1,6 +1,6 @@
 import Utilities.WebDriverSingleton;
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 
@@ -8,19 +8,19 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "StepDefinitions",
-        tags = "@positive"
-//        format = {
-//                "pretty",
-//                "html:target/cucumber-reports/cucumber-pretty",
-//                "json:target/cucumber-reports/CucumberTestReport.json",
-//                "junit:target/cucumber-reports/CucumberTestReport.xml"
-//        }
+        tags = "@positive",
+        plugin = {
+                "io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm",
+                "progress",
+                "summary"
+        }
+
 )
 public class TestRunner {
 
     //закрываем браузер после всех сценариев
     @AfterClass
     public static void CleanUp () throws Exception {
-        WebDriverSingleton.GetInstance().GetDriver().quit();
+        WebDriverSingleton.GetDriver().quit();
     }
 }

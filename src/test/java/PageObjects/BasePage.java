@@ -11,19 +11,21 @@ public abstract class BasePage {
 
     //экземпляр браузера
     public static WebDriver browser;
+
     static {
         try {
-            browser = WebDriverSingleton.GetInstance().GetDriver();
+            browser = WebDriverSingleton.GetDriver();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     private static WebDriverWait wait;
 
+    //
+    private String url = "http://raiffeisen.ru";;
 
     //инициализация элементов страницы
     public BasePage () {
-
         PageFactory.initElements(browser, this);
     }
 
@@ -31,4 +33,8 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    //адрес страницы
+    public String GetUrl() {
+        return url;
+    }
 }

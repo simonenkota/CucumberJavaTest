@@ -9,8 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WebDriverSingleton {
 
-    private static WebDriverSingleton instance = null;
-    private WebDriver driver;
+    private static WebDriver driver = null;
     private WebDriverWait wait;
 
     private WebDriverSingleton() throws Exception {
@@ -23,16 +22,12 @@ public class WebDriverSingleton {
         driver.manage().timeouts().implicitlyWait(propertiesReader.GetTimeout(), TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
-    //создаем новый экземпляр только если он еще не был создан
-    public static WebDriverSingleton GetInstance() throws Exception {
-        if (instance == null) {
-            instance = new WebDriverSingleton();
-        }
-        return instance;
-    }
-
+    //создать новый экземпляр только если он еще не был создан
     //получить ссылку на текущий драйвер
-    public WebDriver GetDriver() {
+    public static WebDriver GetDriver() throws Exception {
+        if (driver == null) {
+            new WebDriverSingleton();
+        }
         return driver;
     }
 

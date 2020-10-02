@@ -1,9 +1,9 @@
 package StepDefinitions;
 
 import PageObjects.CreditCalculatorPage;
-import cucumber.api.java.ru.*;
+import io.cucumber.java.ru.*;
+import io.qameta.allure.Step;
 import org.junit.Assert;
-import org.openqa.selenium.Keys;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -17,9 +17,10 @@ public class CalculateCreditSteps {
 
     // переход по ссылке и проверка что страница загрузилась
     @Дано("^открываем страницу Кредитный калькулятор$")
-    public void открываемСтраницуКредитныйКалькулятор() {
+    public void OpenPageCreditCacl() throws Exception {
         try{
             calculatorPage =  new CreditCalculatorPage();
+
             LLOG.debug("Переход по ссылке " + calculatorPage.GetUrl());
             calculatorPage.OpenCalculatorPage();
         }
@@ -27,9 +28,8 @@ public class CalculateCreditSteps {
             LLOG.error("Catch Exception!!! ", e);
         }
     }
-
     @Когда("^в поле срок кредита введено значение \"([^\"]*)\"$")
-    public void вПолеСрокКредитаВведеноЗначение(String timeValue) {
+    public void SetCreditTimeValue(String timeValue) throws Exception {
         try {
             LLOG.debug("Вводим значение в поле срок кредита");
             calculatorPage.SetCreditTimeInput(timeValue);
@@ -38,9 +38,8 @@ public class CalculateCreditSteps {
             LLOG.error("Catch Exception!!! ", e);
         }
     }
-
     @Когда("^в поле сумма кредита введено значение \"([^\"]*)\"$")
-    public void вПолеСуммаКредитаВведеноЗначение(String creditValue) {
+    public void SetCreditAmountValue(String creditValue) throws Exception {
         try {
             LLOG.debug("Вводим значение в поле сумма кредита");
             calculatorPage.SetCreditAmountInput(creditValue);
@@ -49,29 +48,28 @@ public class CalculateCreditSteps {
             LLOG.error("Catch Exception!!! ", e);
         }
     }
-
     @Тогда("^значение поля срок кредита совпадает с \"([^\"]*)\"$")
-    public void значениеПоляСрокКредитаСовпадаетС(String expectedCreditTime) {
+    public void VerifyCreditTimeValue(String expectedCreditTime) throws Exception {
         try {
             LLOG.debug("получаем актуальное значение поля срок кредита");
             String actualCreditTime = calculatorPage.GetCreditTimeValue();
             // убираем лишние символы в начале и конце
             actualCreditTime = actualCreditTime.replaceAll("^\\s+|\\s+$","");
-            Assert.assertEquals(expectedCreditTime, actualCreditTime);
+            //Assert.assertEquals(expectedCreditTime, actualCreditTime);
+            Assert.assertEquals("Сравниваем актуальное и ожидаемые значения срока кредита ",expectedCreditTime,actualCreditTime);
         }
         catch (Exception e){
             LLOG.error("Catch Exception!!! ", e);
         }
     }
-
     @Тогда("^значение поля сумма кредита совпадает с \"([^\"]*)\"$")
-    public void значениеПоляСуммаКредитаСовпадаетС(String expectedCreditAmount) {
+    public void VerifyCreditAmountValue(String expectedCreditAmount) throws Exception {
         try {
             LLOG.debug("получаем актуальное значение поля сумма кредита");
             String actualCreditAmountValue = calculatorPage.GetCreditAmountValue();
             // убираем лишние символы
             actualCreditAmountValue = actualCreditAmountValue.replaceAll("\\s+","");
-            Assert.assertEquals(expectedCreditAmount, actualCreditAmountValue);
+            Assert.assertEquals("Сравниваем актуальное и ожидаемые значения суммы кредита ", expectedCreditAmount, actualCreditAmountValue);
         }
         catch (Exception e){
             LLOG.error("Catch Exception!!! ", e);
@@ -79,7 +77,7 @@ public class CalculateCreditSteps {
     }
 
     @Тогда("^значение поля ежемесячный платеж совпадает с \"([^\"]*)\"$")
-    public void значениеПоляЕжемесячныйПлатежСовпадаетС(String expectedMounthlyPaymentAmount) {
+    public void VerifyCreditMounthlyPaymentValue(String expectedMounthlyPaymentAmount) throws Exception {
         try {
             LLOG.debug("получаем актуальное значение поля ежемесячный платеж");
             String actualMounthlyPaymentAmount = calculatorPage.GetMounthlyPaymentAmountValue();
