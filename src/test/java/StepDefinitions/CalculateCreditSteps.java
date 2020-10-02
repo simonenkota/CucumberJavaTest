@@ -54,7 +54,7 @@ public class CalculateCreditSteps {
             String actualCreditTime = calculatorPage.GetCreditTimeValue();
             // убираем лишние символы в начале и конце
             actualCreditTime = actualCreditTime.replaceAll("^\\s+|\\s+$","");
-            Assert.assertEquals("Сравниваем актуальное и ожидаемые значения срока кредита ",expectedCreditTime,actualCreditTime);
+            Assert.assertEquals("Ожидаемое значение срока кредита отличается от актуального ",expectedCreditTime,actualCreditTime);
         }
         catch (Exception e){
             LLOG.error("Catch Exception!!! ", e.getMessage());
@@ -67,7 +67,7 @@ public class CalculateCreditSteps {
             String actualCreditAmountValue = calculatorPage.GetCreditAmountValue();
             // убираем лишние символы
             actualCreditAmountValue = actualCreditAmountValue.replaceAll("\\s+","");
-            Assert.assertEquals("Сравниваем актуальное и ожидаемые значения суммы кредита ", expectedCreditAmount, actualCreditAmountValue);
+            Assert.assertEquals("Ожидаемое значение суммы кредита отличается от актуального  ", expectedCreditAmount, actualCreditAmountValue);
         }
         catch (Exception e){
             LLOG.error("Catch Exception!!! ", e.getMessage());
@@ -82,7 +82,7 @@ public class CalculateCreditSteps {
             //убираем лишние символы
             actualMounthlyPaymentAmount = actualMounthlyPaymentAmount.replaceAll("\\s*","");
             actualMounthlyPaymentAmount = actualMounthlyPaymentAmount.replaceAll("₽","");
-            Assert.assertEquals(expectedMounthlyPaymentAmount, actualMounthlyPaymentAmount);
+            Assert.assertEquals("Ожидаемое значение ежемесячного платежа отличается от актуального",expectedMounthlyPaymentAmount, actualMounthlyPaymentAmount);
         }
         catch (Exception e) {
             LLOG.error("Catch Exception!!! ", e.getMessage());
